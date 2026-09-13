@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鱼皮非遗文化 - 千年技艺的传承</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .hero-pattern {
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                url('封面.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .pattern-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e0e0e0' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .nav-scroll {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 nav-scroll">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-fish text-3xl text-amber-600"></i>
+                    <span class="text-xl font-bold text-gray-800">鱼皮非遗文化</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-amber-600 transition">首页</a>
+                    <a href="#about" class="nav-link text-gray-700 hover:text-amber-600 transition">项目介绍</a>
+                    <a href="#gallery" class="nav-link text-gray-700 hover:text-amber-600 transition">作品展示</a>
+                    <a href="#inheritors" class="nav-link text-gray-700 hover:text-amber-600 transition">传承人</a>
+                    <a href="#news" class="nav-link text-gray-700 hover:text-amber-600 transition">新闻动态</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-amber-600 transition">联系我们</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-6 py-4 space-y-3">
+                <a href="#home" class="block text-gray-700 hover:text-amber-600">首页</a>
+                <a href="#about" class="block text-gray-700 hover:text-amber-600">项目介绍</a>
+                <a href="#gallery" class="block text-gray-700 hover:text-amber-600">作品展示</a>
+                <a href="#inheritors" class="block text-gray-700 hover:text-amber-600">传承人</a>
+                <a href="#news" class="block text-gray-700 hover:text-amber-600">新闻动态</a>
+                <a href="#contact" class="block text-gray-700 hover:text-amber-600">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页横幅 -->
+    <section id="home" class="hero-pattern min-h-screen flex items-center justify-center text-white">
+        <div class="text-center fade-in">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-shadow">鱼皮非遗文化</h1>
+            <p class="text-xl md:text-2xl mb-8 text-shadow max-w-3xl mx-auto px-6">
+                千年技艺，匠心传承。探索北方少数民族独特的鱼皮制作工艺，感受传统文化的魅力。
+            </p>
+            <div class="space-x-4">
+                <a href="#about" class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full transition transform hover:scale-105">
+                    了解更多
+                </a>
+                <a href="#gallery" class="inline-block border-2 border-white hover:bg-white hover:text-gray-800 text-white px-8 py-3 rounded-full transition">
+                    查看作品
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目介绍 -->
+    <section id="about" class="py-20 pattern-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">项目介绍</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">什么是鱼皮工艺？</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        鱼皮工艺是中国北方少数民族，特别是赫哲族的传统手工艺，有着上千年的历史。这种独特的工艺利用鱼皮制作衣物、装饰品等生活用品，体现了先民们的智慧和创造力。
+                    </p>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        鱼皮经过特殊的鞣制处理，变得柔软耐用，具有独特的纹理和光泽。每一件鱼皮制品都是独一无二的艺术品，承载着深厚的文化内涵。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="bg-white p-4 rounded-lg shadow hover-scale">
+                            <i class="fas fa-history text-3xl text-amber-600 mb-2"></i>
+                            <h4 class="font-bold">千年历史</h4>
+                            <p class="text-sm text-gray-600">传承千年的古老技艺</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow hover-scale">
+                            <i class="fas fa-award text-3xl text-amber-600 mb-2"></i>
+                            <h4 class="font-bold">非遗认证</h4>
+                            <p class="text-sm text-gray-600">国家级非物质文化遗产</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://picsum.photos/seed/fishskin1/400/300.jpg" alt="鱼皮工艺" class="rounded-lg shadow-lg hover-scale">
+                    <img src="https://picsum.photos/seed/fishskin2/400/300.jpg" alt="鱼皮制品" class="rounded-lg shadow-lg hover-scale mt-8">
+                    <img src="https://picsum.photos/seed/fishskin3/400/300.jpg" alt="制作过程" class="rounded-lg shadow-lg hover-scale -mt-8">
+                    <img src="https://picsum.photos/seed/fishskin4/400/300.jpg" alt="传统工具" class="rounded-lg shadow-lg hover-scale">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">作品展示</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto"></div>
+                <p class="text-gray-600 mt-4">每一件作品都是匠心独运的艺术结晶</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg hover-scale cursor-pointer">
+                    <img src="https://picsum.photos/seed/work1/400/500.jpg" alt="鱼皮酒具套装" class="w-full h-80 object-cover">
+                    <div class="gallery-overlay flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-xl font-bold mb-2">传统鱼皮服饰</h3>
+                            <p class="text-sm">赫哲族传统服饰，精美绝伦</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg hover-scale cursor-pointer">
+                    <img src="https://picsum.photos/seed/work2/400/500.jpg" alt="鱼皮镂空装饰画" class="w-full h-80 object-cover">
+                    <div class="gallery-overlay flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-xl font-bold mb-2">鱼皮装饰画</h3>
+                            <p class="text-sm">现代设计，传统工艺</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg hover-scale cursor-pointer">
+                    <img src="https://picsum.photos/seed/work3/400/500.jpg" alt="红色鱼皮花朵挂饰" class="w-full h-80 object-cover">
+                    <div class="gallery-overlay flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-xl font-bold mb-2">鱼皮配饰系列</h3>
+                            <p class="text-sm">时尚与传统完美结合</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg hover-scale cursor-pointer">
+                    <img src="https://picsum.photos/seed/work4/400/500.jpg" alt="灰色鱼皮花朵挂饰" class="w-full h-80 object-cover">
+                    <div class="gallery-overlay flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-xl font-bold mb-2">鱼皮手提包</h3>
+                            <p class="text-sm">实用与美观并重</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg hover-scale cursor-pointer">
+                    <img src="https://picsum.photos/seed/work5/400/500.jpg" alt="鱼皮小熊挂饰" class="w-full h-80 object-cover">
+                    <div class="gallery-overlay flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-xl font-bold mb-2">鱼皮艺术摆件</h3>
+                            <p class="text-sm">收藏价值极高的艺术品</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item rounded-lg overflow-hidden shadow-lg hover-scale cursor-pointer">
+                    <img src="https://picsum.photos/seed/work6/400/500.jpg" alt="鱼皮工艺细节" class="w-full h-80 object-cover">
+                    <div class="gallery-overlay flex items-end p-6">
+                        <div class="text-white">
+                            <h3 class="text-xl font-bold mb-2">鱼皮鞋履</h3>
+                            <p class="text-sm">舒适耐用的传统鞋履</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 传承人介绍 -->
+    <section id="inheritors" class="py-20 pattern-bg">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">传承人风采</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale">
+                    <img src="https://picsum.photos/seed/person1/400/400.jpg" alt="传承人" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">赵越</h3>
+                        <p class="text-amber-600 mb-3">国家级非遗传承人</p>
+                        <p class="text-gray-600 text-sm">
+                            从事鱼皮工艺60余年，精通传统制作技艺，培养了数十名弟子，为鱼皮工艺的传承做出了巨大贡献。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale">
+                    <img src="https://picsum.photos/seed/person2/400/400.jpg" alt="传承人" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">李娜</h3>
+                        <p class="text-amber-600 mb-3">省级非遗传承人</p>
+                        <p class="text-gray-600 text-sm">
+                            致力于鱼皮工艺的创新与发展，将传统工艺与现代设计相结合，创作出许多优秀作品。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale">
+                    <img src="https://picsum.photos/seed/person3/400/400.jpg" alt="传承人" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">鲁超</h3>
+                        <p class="text-amber-600 mb-3">青年传承人</p>
+                        <p class="text-gray-600 text-sm">
+                            年轻一代的传承人代表，通过新媒体平台推广鱼皮文化，让更多年轻人了解并喜爱这门古老技艺。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 新闻动态 -->
+    <section id="news" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">新闻动态</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <article class="bg-gray-50 rounded-lg overflow-hidden shadow hover-scale">
+                    <img src="https://picsum.photos/seed/news1/400/250.jpg" alt="新闻图片" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 mb-2">2024年3月15日</div>
+                        <h3 class="text-lg font-bold mb-2">鱼皮工艺展在北京成功举办</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            本次展览展出了百余件精美的鱼皮工艺品，吸引了众多观众前来参观...
+                        </p>
+                        <a href="#" class="text-amber-600 hover:text-amber-700 font-medium">阅读更多 →</a>
+                    </div>
+                </article>
+                
+                <article class="bg-gray-50 rounded-lg overflow-hidden shadow hover-scale">
+                    <img src="https://picsum.photos/seed/news2/400/250.jpg" alt="新闻图片" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 mb-2">2024年2月28日</div>
+                        <h3 class="text-lg font-bold mb-2">非遗进校园活动圆满结束</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            传承人们走进校园，为学生们展示鱼皮工艺的制作过程，受到了热烈欢迎...
+                        </p>
+                        <a href="#" class="text-amber-600 hover:text-amber-700 font-medium">阅读更多 →</a>
+                    </div>
+                </article>
+                
+                <article class="bg-gray-50 rounded-lg overflow-hidden shadow hover-scale">
+                    <img src="https://picsum.photos/seed/news3/400/250.jpg" alt="新闻图片" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="text-sm text-gray-500 mb-2">2024年1月20日</div>
+                        <h3 class="text-lg font-bold mb-2">鱼皮工艺获国际设计大奖</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            在国际设计大赛中，鱼皮工艺作品荣获金奖，向世界展示了中国传统工艺的魅力...
+                        </p>
+                        <a href="#" class="text-amber-600 hover:text-amber-700 font-medium">阅读更多 →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">联系我们</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto"></div>
+                <p class="mt-4 text-gray-300">欢迎与我们联系，了解更多关于鱼皮非遗文化</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">联系信息</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-map-marker-alt text-amber-600 text-xl"></i>
+                            <span>哈尔滨信息工程学院（哈东校区）</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-phone text-amber-600 text-xl"></i>
+                            <span>10086</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-envelope text-amber-600 text-xl"></i>
+                            <span>暂无</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-clock text-amber-600 text-xl"></i>
+                            <span>周一至周日 9:00-17:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-lg font-bold mb-4">关注我们</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-gray-800 hover:bg-amber-600 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-weixin"></i>
+                            </a>
+                            <a href="#" class="bg-gray-800 hover:bg-amber-600 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-weibo"></i>
+                            </a>
+                            <a href="#" class="bg-gray-800 hover:bg-amber-600 w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">留言板</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <input type="text" placeholder="您的姓名" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
+                        <input type="email" placeholder="您的邮箱" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600">
+                        <textarea placeholder="留言内容" rows="4" class="w-full px-4 py-3 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600"></textarea>
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-lg transition transform hover:scale-105">
+                            发送留言
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-black text-gray-400 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 鱼皮非遗文化. All rights reserved. | 传承千年技艺，弘扬民族文化</p>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-amber-600 hover:bg-amber-700 text-white w-12 h-12 rounded-full shadow-lg hidden transition transform hover:scale-110">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('back-to-top');
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+                backToTop.classList.remove('hidden');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                backToTop.classList.add('hidden');
+            }
+        });
+
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // 关闭移动端菜单
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // 返回顶部
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 表单提交
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // 这里可以添加实际的表单提交逻辑
+            alert('感谢您的留言！我们会尽快与您联系。');
+            this.reset();
+        });
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有需要动画的元素
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
