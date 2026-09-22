@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: 结构与资源校验
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: 资源与锚点自检
+        run: python3 scripts/check_assets.py index.html
+
+      - name: 配置 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: HTML 规范检查
+        run: npx --yes html-validate@8.24.2 index.html
+
+  lint-markdown:
+    name: 文档链接校验
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 检查 Markdown 中的死链
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # 排除说明：
+          #   badge.svg   —— 工作流徽章是动态端点，工作流进入默认分支前必然 404
+          #   github.io   —— 站点 URL 是「部署产物」，部署前必然 404；
+          #                  它的可用性由 pages.yml 的部署后冒烟测试负责，不在部署前检查
+          #   picsum / tailwind CDN —— 外部占位图服务，网络波动会造成误报
+          args: >-
+            --no-progress
+            --exclude-path .github
+            --accept 200,203,206,429
+            --exclude "badge\.svg"
+            --exclude "outlelijiadong\.github\.io"
+            --exclude "picsum\.photos"
+            --exclude "cdn\.tailwindcss\.com"
+            "**/*.md"
+          fail: true

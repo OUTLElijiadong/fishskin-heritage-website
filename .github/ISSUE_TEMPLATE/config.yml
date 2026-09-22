@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 内容纠错与素材补充
+    url: https://github.com/OUTLElijiadong/fishskin-heritage-website/issues/new?template=feature_request.yml
+    about: 站点文字、图片素材、传承人信息的更正或补充，请使用「功能 / 内容请求」模板。
+  - name: 安全问题报告
+    url: https://github.com/OUTLElijiadong/fishskin-heritage-website/security/policy
+    about: 请勿在公开 issue 中披露安全相关问题，先阅读 SECURITY.md。

@@ -1,0 +1,84 @@
+name: 部署 GitHub Pages
+
+# 站点为纯静态单页，无构建步骤，因此这里只做「拷贝 + 上传 + 部署」。
+# 前置条件（仅需设置一次，见仓库 Settings → Pages）：
+#   Source 必须选 "GitHub Actions"，不能选 "Deploy from a branch"。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: 准备发布产物
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 校验资源引用
+        run: python3 scripts/check_assets.py index.html
+
+      - name: 生成发布目录
+        # 只发布站点本体，排除 .github / docs / scripts 等非站点文件
+        run: |
+          mkdir -p _site
+          rsync -a --delete \
+            --exclude='.*' \
+            --exclude='docs/' \
+            --exclude='scripts/' \
+            --exclude='_site/' \
+            ./ _site/
+          ls -l _site
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      - name: 上传产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: 部署
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: 部署后冒烟测试
+        # 站点 URL 属于「部署产物」，只有在部署之后检查才有意义，
+        # 因此放在这里而不是放在 PR 阶段的死链检查里。
+        run: |
+          url="${{ steps.deployment.outputs.page_url }}"
+          echo "检查目标：$url"
+          code=000
+          for i in $(seq 1 10); do
+            code=$(curl -sL -o /tmp/page.html -w "%{http_code}" "$url" || echo 000)
+            echo "第 $i 次尝试：HTTP $code"
+            [ "$code" = "200" ] && break
+            sleep 10
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::页面未返回 200，最后一次为 $code"
+            exit 1
+          fi
+          if ! grep -q "鱼皮非遗文化" /tmp/page.html; then
+            echo "::error::页面内容异常，未找到预期的标题文字"
+            exit 1
+          fi
+          echo "冒烟测试通过：页面可访问且内容完整"
