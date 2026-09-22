@@ -40,7 +40,7 @@ main  ──────●───────────●─────�
 | Required approvals | 1 | 至少一次评审 |
 | Dismiss stale approvals | ✅ | 代码改了就重新评审 |
 | Require review from Code Owners | ✅ | 配合 `.github/CODEOWNERS` |
-| Require status checks to pass | `结构与资源校验`、`文档链接校验` | CI 不过不许合 |
+| Require status checks to pass | `结构与资源校验`、`文档链接校验`、`Conventional Commits 标题校验` | CI 不过不许合 |
 | Require branches to be up to date | ✅ | 防止基于旧代码合并 |
 | Require conversation resolution | ✅ | 评审意见要闭环 |
 | Block force pushes | ✅ | 禁止改写已推送历史 |
