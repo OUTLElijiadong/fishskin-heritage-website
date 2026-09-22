@@ -59,3 +59,26 @@ jobs:
       - name: 部署到 GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: 部署后冒烟测试
+        # 站点 URL 属于「部署产物」，只有在部署之后检查才有意义，
+        # 因此放在这里而不是放在 PR 阶段的死链检查里。
+        run: |
+          url="${{ steps.deployment.outputs.page_url }}"
+          echo "检查目标：$url"
+          code=000
+          for i in $(seq 1 10); do
+            code=$(curl -sL -o /tmp/page.html -w "%{http_code}" "$url" || echo 000)
+            echo "第 $i 次尝试：HTTP $code"
+            [ "$code" = "200" ] && break
+            sleep 10
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::页面未返回 200，最后一次为 $code"
+            exit 1
+          fi
+          if ! grep -q "鱼皮非遗文化" /tmp/page.html; then
+            echo "::error::页面内容异常，未找到预期的标题文字"
+            exit 1
+          fi
+          echo "冒烟测试通过：页面可访问且内容完整"
