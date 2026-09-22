@@ -1,0 +1,50 @@
+name: 提交规范校验
+
+# 校验 PR 标题是否符合 Conventional Commits。
+# 本仓库使用 Squash Merge，PR 标题即最终提交信息，
+# 因此把校验放在标题上，比事后检查每个 commit 更可靠，也无需引入 Node 依赖。
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  conventional-title:
+    name: Conventional Commits 标题校验
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: 校验 PR 标题
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            docs
+            style
+            refactor
+            perf
+            test
+            build
+            ci
+            chore
+            revert
+          scopes: |
+            gallery
+            news
+            inheritors
+            contact
+            layout
+            assets
+            deps
+            release
+          requireScope: false
+          subjectPattern: ^(?![A-Z]).+$
+          subjectPatternError: |
+            PR 标题的描述部分不能以大写字母开头。
+            正确示例：feat(gallery): 替换作品区占位图
+            错误示例：feat(gallery): Replace placeholder images

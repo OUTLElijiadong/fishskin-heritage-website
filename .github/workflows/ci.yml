@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: 结构与资源校验
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: 资源与锚点自检
+        run: python3 scripts/check_assets.py index.html
+
+      - name: 配置 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: HTML 规范检查
+        run: npx --yes html-validate@8.24.2 index.html
+
+  lint-markdown:
+    name: 文档链接校验
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 检查 Markdown 中的死链
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --exclude-path .github
+            --accept 200,203,206,429
+            --exclude "picsum\.photos"
+            --exclude "cdn\.tailwindcss\.com"
+            "**/*.md"
+          fail: true

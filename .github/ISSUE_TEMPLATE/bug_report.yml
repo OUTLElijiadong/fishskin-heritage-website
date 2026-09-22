@@ -1,0 +1,95 @@
+name: 缺陷报告
+description: 报告页面显示异常、样式错乱、链接失效等问题
+title: "bug: "
+labels: ["type: bug", "status: needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量填写完整，这能显著缩短定位问题的时间。
+        提交前请先搜索是否已有相同 issue。
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 问题现象
+      description: 你看到了什么？与预期有何不同？
+      placeholder: 例如：首页横幅背景图未显示，控制台报 404
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 请给出可复现的最小步骤
+      placeholder: |
+        1. 打开 https://OUTLElijiadong.github.io/fishskin-heritage-website/
+        2. 滚动到「作品展示」区域
+        3. 观察到 ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+      placeholder: 图片应正常加载并显示
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: 页面地址 / 锚点
+      description: 出问题的具体页面或区块
+      placeholder: https://.../#gallery
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 受影响区域
+      options:
+        - 首页横幅
+        - 工艺介绍
+        - 作品展示
+        - 传承人风采
+        - 新闻动态
+        - 联系我们
+        - 全站 / 布局框架
+        - 其他
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 严重程度
+      options:
+        - "P0 - 页面不可用 / 白屏"
+        - "P1 - 主要功能异常"
+        - "P2 - 显示瑕疵，不影响使用"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      description: 浏览器与设备信息
+      placeholder: |
+        - 浏览器：Chrome 140 / Safari 26
+        - 系统：macOS 26 / Windows 11 / iOS 26
+        - 屏幕：桌面 1440px / 移动端 390px
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图 / 控制台报错
+      description: 可直接粘贴图片或控制台输出
+    validations:
+      required: false

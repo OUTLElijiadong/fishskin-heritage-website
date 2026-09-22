@@ -1,0 +1,21 @@
+# CODEOWNERS 语法参考：
+#   https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# 每行格式：<匹配模式> <Owner1> <Owner2> ...
+# 后出现的规则覆盖先出现的规则。
+
+# ── 默认负责人：所有变更需由仓库维护者评审 ──
+*                       @OUTLElijiadong
+
+# ── 自动化与发布配置：变更影响 CI/发版，必须由维护者亲自评审 ──
+/.github/               @OUTLElijiadong
+/.release-please-config.json  @OUTLElijiadong
+/.release-please-manifest.json @OUTLElijiadong
+
+# ── 协作规范文档 ──
+/CONTRIBUTING.md        @OUTLElijiadong
+/SECURITY.md            @OUTLElijiadong
+/CHANGELOG.md           @OUTLElijiadong
+
+# ── 站点内容 ──
+/index.html             @OUTLElijiadong

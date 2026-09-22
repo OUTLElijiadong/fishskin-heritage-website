@@ -1,0 +1,34 @@
+# ── Conventional Commits 提交模板 ──
+# 用法：git config commit.template .gitmessage
+#
+# 格式：<type>(<scope>): <subject>
+#       subject 用中文或英文均可，但不得以大写字母开头，结尾不要句号
+#
+# ── type 取值（决定版本号怎么变）──
+#   feat           新功能 / 新内容     → minor (0.1.0 → 0.2.0)
+#   fix            缺陷修复           → patch (0.1.0 → 0.1.1)
+#   perf           性能优化           → patch
+#   docs           仅文档变更          → 不发版
+#   style          格式调整，不影响逻辑  → 不发版
+#   refactor       重构              → 不发版
+#   test           测试              → 不发版
+#   build          构建 / 依赖          → 不发版
+#   ci             CI 配置            → 不发版
+#   chore          其他杂项           → 不发版
+#   revert         回滚              → patch
+#
+# ── 破坏性变更（→ major）──
+#   两种写法二选一：
+#     feat!: 重构页面结构
+#     feat: 重构页面结构
+#
+#     BREAKING CHANGE: 旧版 URL 锚点已全部调整
+#
+# ── scope 可选值（本仓库）──
+#   gallery news inheritors contact layout assets deps release
+#
+# ── 完整示例 ──
+#   feat(gallery): 替换作品区占位图为真实素材
+#   fix(contact): 修正手机号校验正则
+#   docs: 补充 GitHub Pages 部署说明
+#   chore(deps): 升级 actions/checkout 到 v4

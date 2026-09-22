@@ -1,0 +1,72 @@
+name: 功能 / 内容请求
+description: 提出新区块、新交互，或对现有文案与素材的补充更正
+title: "feat: "
+labels: ["type: enhancement", "status: needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        用于提出站点改进建议。若是页面出错，请改用「缺陷报告」模板。
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 请求类型
+      options:
+        - 新增页面区块
+        - 交互 / 动效改进
+        - 文案或图文内容补充
+        - 视觉风格调整
+        - 无障碍 / 可访问性改进
+        - 性能与加载优化
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 背景与动机
+      description: 现在存在什么不足？为什么需要做这件事？
+      placeholder: 目前作品展示区仅有占位图，需要替换为真实鱼皮工艺品素材。
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 期望方案
+      description: 你希望怎么改？越具体越好
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 已考虑的其他方案
+      description: 是否有替代做法？为什么没选它们？
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 优先级建议
+      options:
+        - "P0 - 阻塞发布"
+        - "P1 - 下个迭代"
+        - "P2 - 有空再做"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 参与方式
+      options:
+        - label: 我愿意提交 PR 实现这个需求
+          required: false
+        - label: 我可以提供素材或文案
+          required: false
+        - label: 仅需维护者处理
+          required: false

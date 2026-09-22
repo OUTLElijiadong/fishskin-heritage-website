@@ -1,0 +1,31 @@
+name: 自动发版
+
+# release-please 扫描 main 上的 Conventional Commits：
+#   1. 自动维护一个 Release PR（累计变更 + 更新 CHANGELOG + 算出下个版本号）
+#   2. 该 PR 被合并后，自动打 tag 并创建 GitHub Release
+#
+# 版本规则（默认 angular 约定）：
+#   fix:    → patch (0.1.0 → 0.1.1)
+#   feat:   → minor (0.1.0 → 0.2.0)
+#   feat!/BREAKING CHANGE: → major (0.1.0 → 1.0.0)
+#   docs/chore/style/ci 等 → 不触发发版
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    steps:
+      - name: 运行 release-please
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: .release-please-config.json
+          manifest-file: .release-please-manifest.json
